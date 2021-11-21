@@ -8,10 +8,6 @@ document.getElementsByTagName('head')[0].appendChild(script);
 
 if( typeof IntersectionObserver !== "undefined" && "forEach" in NodeList.prototype ) {
 	var observer = new IntersectionObserver(function(changes) {
-		if ("connection" in navigator && navigator.connection.saveData === true) {
-			return;
-		}
-
 		changes.forEach(function(change) {
 			if(change.isIntersecting) {
 				document.querySelector('.carbonbadge-script').setAttribute("src", script.getAttribute("data-src"));
