@@ -1,0 +1,32 @@
+<div id="wcb" class="carbonbadge"></div>
+<script>
+var script = document.createElement('script');
+script.setAttribute('data-src', 'https://unpkg.com/website-carbon-badges@1.1.3/b.min.js');
+script.classList.add('carbonbadge-script');
+script.defer = true;
+document.getElementsByTagName('head')[0].appendChild(script);
+
+if( typeof IntersectionObserver !== "undefined" && "forEach" in NodeList.prototype ) {
+	var observer = new IntersectionObserver(function(changes) {
+		if ("connection" in navigator && navigator.connection.saveData === true) {
+			return;
+		}
+
+		changes.forEach(function(change) {
+			if(change.isIntersecting) {
+				document.querySelector('.carbonbadge-script').setAttribute("src", script.getAttribute("data-src"));
+                document.querySelector('.carbonbadge-script').removeAttribute("data-src");
+				observer.unobserve(change.target);
+			}
+		});
+	});
+	document.querySelectorAll("#wcb").forEach(function(img) {
+		observer.observe(img);
+	});
+} else {
+    document.querySelectorAll('.carbonbadge-script').forEach(function(script) {
+        script.setAttribute("src", script.getAttribute("data-src"));
+        script.removeAttribute("data-src");
+    });
+}
+</script>
